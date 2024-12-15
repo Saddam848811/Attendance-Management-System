@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,74 +7,216 @@
     <title>Attendance App</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
     <style>
-        body {
-            background-color: #343a40; /* Dark gray background */
-            color: white; /* White text for contrast */
+         body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #18c6e2; /* Dark background for the body */
+            background-image: url('/images/profile3.jpg'); /* Full-page background image */
+            background-size: cover; /* Make the image cover the entire body */
+            background-position: center; /* Center the image */
+            background-attachment: fixed; /* Ensure the image stays fixed while scrolling */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            color: #fff;
+            font-family: 'Arial', sans-serif;
         }
-        .container {
-            margin-top: 50px; /* Spacing from the top */
-            background-color: #495057; /* Container background */
-            padding: 40px; /* Inner padding */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+
+        /* Left side for the background image */
+       /* Left side for the background image */
+.left-side {
+    flex: 0 0 60%; /* 60% of the screen width */
+    height: 100%;
+    background-image: url('/images/register.jpg'); /* Background image */
+    background-size: cover; /* Make the image cover the entire container */
+    background-position: center;
+    animation: slideInLeft 2s ease-out; /* Animation for sliding in from the left */
+    transition: transform 0.3s ease; /* Transition for hover effect */
+}
+
+/* Hover effect for left-side image */
+.left-side:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+
+        /* Right side for the form content */
+        .right-side {
+            flex: 1; /* The right side will take the remaining 40% */
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #0e87a2; /* Slightly lighter gray */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+            border-radius: 0px;
+            animation: fadeIn 2s ease-out; /* Animation for fading in */
+            max-width: 600px;
+            margin: 0 auto;
+            transition: transform 0.3s ease; /* Hover effect */
+            height:700px;
         }
+
+        /* Hover effect for right side */
+        .right-side:hover {
+            transform: scale(1.05); /* Zoom effect on hover */
+        }
+
+        .heading {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 20px;
+            text-align: center; /* Center the heading */
+            animation: fadeInUp 1s ease-out; /* Fade-in effect for the heading */
+        }
+
         .form-control {
-            background-color: #6c757d; /* Darker input background */
-            border: none; /* Remove border */
-            color: white; /* White text in input fields */
+            background-color: rgba(227, 237, 240, 0.8); /* Darker input background */
+            color: white; /* Input text color */
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
-        .form-control::placeholder {
-            color: #ced4da; /* Lighter placeholder text */
+        .form-control:focus {
+            background-color: #5a6268; /* Lighter background on focus */
+            color: white; /* Keep text color white on focus */
+            border-color: #007bff; /* Highlighted border on focus */
         }
-        .btn-success {
-            background-color: #28a745; /* Green color for Register button */
-            border-color: #28a745; /* Match border color */
-        }
-        .btn-success:hover {
-            background-color: #218838; /* Darker green on hover */
-            border-color: #1e7e34; /* Match border color on hover */
-        }
+
         .btn-primary {
+            width: 100%; /* Full-width button */
             margin-bottom: 20px; /* Spacing below the button */
+            background-color: #007bff; /* Primary blue color */
+            border-color: #007bff;
+            font-weight: bold;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #0056b3; /* Darker border on hover */
+            transform: scale(1.05); /* Slight zoom effect on hover */
+        }
+
+        .btn-add-teacher {
+            background-color: #28a745; /* Green color for the "Add Teacher" button */
+            border-color: #28a745;
+            font-weight: bold;
+            color: white;
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-add-teacher:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+            transform: scale(1.05);
+        }
+
+        .text-left {
+            width: 100%;
+        }
+
+        /* Custom Animation: Slide In from Left */
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Custom Animation: Fade In */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Custom Animation for Heading */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h5 {
+            font-size: 1.2rem;
+        }
+
+        .message {
+            font-size: 1.1rem;
+            color: #ff4d4d;
+            text-shadow: 2px 2px 5px black;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container text-center">
-        <h1 class="my-5">Attendance App</h1>
-        
-        <a href="studentlogin0" class="btn btn-primary mb-4">Login as Student</a>
-        
-        <h2 class="my-4">Register for Student Account</h2>
-                    <h3 style="color: #ff0038">${msg} </h3>
-        
+    <!-- Left side for the background image -->
+    <div class="left-side">
+    </div>
+    <div class="right-side">
+
+        <h5 class="my-4 text-white animate__animated animate__fadeIn animate__delay-1.5s">"Please register to continue"</h5>
+
+        <c:if test="${not empty msg}">
+            <div class="alert alert-info">
+                ${msg}
+            </div>
+        </c:if>
+
+        <!-- Register Form -->
         <form action="studentregistercourse" method="post">
             <div class="form-group">
-                <label for="rollno">Enter Roll No:</label>
+                <label for="rollno" class="h6">Enter Roll No:</label>
                 <input type="text" class="form-control mb-3" id="rollno" name="rollno" placeholder="Enter Roll No" required>
             </div>
             <div class="form-group">
-                <label for="name">Enter Name:</label>
+                <label for="name" class="h6">Enter Name:</label>
                 <input type="text" class="form-control mb-3" id="name" name="Name" placeholder="Enter Name" required>
             </div>
             <div class="form-group">
-                <label for="email">Enter Email:</label>
+                <label for="email" class="h6">Enter Email:</label>
                 <input type="email" class="form-control mb-3" id="email" name="email" placeholder="Enter Email" required>
             </div>
             <div class="form-group">
-                <label for="password">Enter Password:</label>
+                <label for="password" class="h6">Enter Password:</label>
                 <input type="password" class="form-control mb-3" id="password" name="password" placeholder="Enter Password" required>
             </div>
             <div class="form-group">
-                <label for="phoneno">Enter Phone No:</label>
+                <label for="phoneno" class="h6">Enter Phone No:</label>
                 <input type="number" class="form-control mb-3" id="phoneno" name="phoneno" placeholder="Enter Phone No" required>
             </div>
-            <button type="submit" class="btn btn-success">Register</button>
+            <button type="submit" class="btn btn-primary">Register</button>
         </form>
+
+         <a href="studentlogin0" class="btn btn-primary">Login as Student</a>
     </div>
 
-    <!-- Bootstrap JS and dependencies -->
+    <!-- Bootstrap JS and dependencies (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

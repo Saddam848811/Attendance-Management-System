@@ -10,20 +10,28 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #343a40; /* Dark gray background */
-            color: white; /* White text for contrast */
-        }
+    display: flex;
+    height: 100vh;
+    margin: 0;
+    background-color: #18c6e2; /* Dark background for the body */
+    background-image: url('/images/profile3.jpg'); /* Full-page background image */
+    background-size: cover; /* Make the image cover the entire body */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Ensure the image stays fixed while scrolling */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+}
 
         .container {
-            margin-top: 50px; /* Spacing from the top */
-            background-color: #495057; /* Container background */
-            padding: 40px; /* Inner padding */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
-        }
+	margin-top: 50px; /* Spacing from the top */
+	background-color: rgba(255, 255, 255, 0.3); /* Container background */
+	padding: 40px; /* Inner padding */
+	border-radius: 10px; /* Rounded corners */
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+}
 
         .form-control {
-            background-color: #6c757d; /* Darker input background */
+            background-color: rgba(255, 255, 255, 0.3); /* Darker input background */
             border: none; /* Remove border */
             color: white; /* White text in input fields */
         }
@@ -41,21 +49,21 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center mb-4">Register for Courses/Class</h1>
         <form action="teachercourse">
             <button type="submit" class="btn btn-primary" style="width: 150px;">Go back</button>
         </form>
         <hr>
-        <h5 style="color:green">${msgg}</h5>
-        <h5 style="color:red">${msgr}</h5>
+<h2 style="color: #ff0000; text-shadow: 2px 2px 5px black;">${msgr}</h2>
+<h2 style="color: #16d84d; text-shadow: 2px 2px 5px black;">${msgg}</h2>
+        
 
         <form action="teachercourseregister" method="post">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="course">Course:</label>
-                        <select id="course" name="course" class="form-control" required onchange="updateSemesters()">
-                            <option value="">Select a course</option>
+                        <label for="course"></label>
+                        <select style="color:black" id="course" name="course" class="form-control" required onchange="updateSemesters()">
+                            <option style="color:black" value="">Select a course</option>
                             <option value="mca">MCA</option>
                             <option value="bca">BCA</option>
                             <option value="bba">BBA</option>
@@ -72,9 +80,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <select id="subject" name="subject" class="form-control" required>
-                        <option value="">Select a subject</option>
+                    <label for="subject"></label>
+                    <select style="color:black" id="subject" name="subject" class="form-control" required>
+                        <option  value="">Select a subject</option>
                     </select>
                 </div>
             </div>

@@ -1,46 +1,444 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=1.0">
     <title>Attendance App</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
     <style>
-        body {
-            background-color: #343a40; /* Dark grey background */
-            color: white; /* White text for contrast */
+        /* Full-page background image that stays fixed */
+        .background-image {
+            display: flex;
+            height: 100vh;
+            background-image: url('/images/profile3.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
         }
-        .container {
-            margin-top: 100px; /* Top margin for better spacing */
-            background-color: #495057; /* Slightly lighter grey for the container */
-            border-radius: 10px; /* Rounded corners */
-            padding: 30px; /* Inner padding */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+
+        /* Left side (fixed image with content) */
+        .left-side {
+            top: 0;
+            left: 0;
+            width: 65%;
+            height: 100%;
+            background-image: url('/images/first.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: slideInLeft 1.5s ease-out;
+            z-index: 1;
+            transition: all 0.5s ease;
         }
-        .btn-lg {
-            width: 100%; /* Full-width buttons for better usability on mobile */
-            margin-bottom: 15px; /* Space between buttons */
+
+        .left-side:hover {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .left-side img {
+            max-width: 80%;
+            height: auto;
+            margin-left: 140px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .left-side:hover img {
+            transform: scale(1.1); /* Slight zoom effect on image hover */
+        }
+
+        /* Right side content (fixed) */
+        .right-side {
+            top: 0;
+            right: 0;
+            width: 35%;
+            height: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #084c2c, #1f3b26);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            animation: fadeIn 1.5s ease-out;
+            z-index: 1;
+            color: white;
+            transition: all 0.5s ease;
+        }
+
+        .right-side:hover {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .right-side h1 {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            font-size: 3rem;
+            margin-top: 50px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .right-side h5 {
+            color: #ffb74d;
+            text-align: center;
+            font-size: 1.5rem;
+            padding-top: 150px;
+        }
+
+        /* Ensure buttons are aligned and not too wide */
+        .right-side button {
+            margin: 10px 0;
+            margin-left: 150px;
+            border-radius: 25px;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            background-color: #ff8c00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .right-side button:hover {
+            background-color: #e67e00;
+            transform: scale(1.05);
+        }
+
+        .bottom {
+            background-color: #124408;
+            padding: 40px 20px;
+            color: white;
+        }
+
+        .bottom h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 80px;
+        }
+
+        /* Card styling for each section */
+        .card {
+            background-color: #2e5b3d;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 100px;
+            margin-top: 150px;
+            width: 60%;
+            min-height: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card-header {
+            background-color: #1f3b26;
+            color: white;
+            font-size: 1.25rem;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .card-body {
+            color: white;
+            font-size: 1rem;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .card-body ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .card-body ul li {
+            margin-bottom: 10px;
+        }
+
+        .card-footer {
+            background-color: #1f3b26;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .card-footer a {
+            color: #ff8c00;
+            text-decoration: none;
+        }
+
+        .card-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .image-section img {
+            width: 100%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        /* Styling for the Contact Us Card */
+        .contact-us-card {
+            background-color: #232f3e;
+            color: white;
+            margin-top: 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 100%;
+        }
+
+        .contact-us-card .card-header {
+            background-color: #131a22;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-us-card .card-body {
+            padding: 20px;
+        }
+
+        .contact-us-card h5 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .contact-us-card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .contact-us-card ul li {
+            margin-bottom: 10px;
+        }
+
+        .contact-us-card a {
+            color: #ff9900;
+            text-decoration: none;
+        }
+
+        .contact-us-card a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-us-card .card-footer {
+            background-color: #131a22;
+            color: #d1d1d1;
+            padding: 10px;
+        }
+
+        /* Social media icons (using Font Awesome) */
+        .social-links i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        .social-links a {
+            display: block;
+            color: #ff9900;
+            margin-bottom: 10px;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations for the cards */
+        .card-left,
+        .card-right {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .card-right {
+            transform: translateX(50px);
+        }
+
+        /* When the card is in view */
+        .card-left.animate,
+        .card-right.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Responsive layout for different screen sizes */
+        @media (max-width: 768px) {
+            .contact-us-card .row {
+                flex-direction: column;
+            }
+
+            .contact-us-card .col-md-3 {
+                margin-bottom: 20px;
+            }
+
+            .left-side {
+                width: 100%;
+                height: 50%;
+            }
+
+            .right-side {
+                width: 100%;
+                height: 50%;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container text-center">
-        <h1 class="my-4">Attendance App</h1>
+    <!-- Full-page background image -->
+    <div class="background-image">
+        <!-- Left side for the logo image (fixed) -->
+        <div class="left-side">
+            <img src="images/VSEC_LOGO (2).png" alt="VSEC Logo">
+        </div>
 
-        <form action="teacherlogin0" class="mb-3">
-            <button type="submit" class="btn btn-primary btn-lg">Teacher Login</button>
-        </form>
+        <!-- Right side for the form content (fixed) -->
+        <div class="right-side">
+            <h1>University Attendance App</h1>
+            <h5 class="my-4">"Are you a teacher or a student?"</h5>
+            <form action="teacherlogin0" class="mb-3">
+                <button type="submit" class="btn-primary btn-lg">Teacher Login</button>
+            </form>
+            <form action="studentlogin0">
+                <button type="submit" class="btn-secondary btn-lg">Student Login</button>
+            </form>
+        </div>
+    </div>
 
-        <form action="studentlogin0">
-            <button type="submit" class="btn btn-secondary btn-lg">Student Login</button>
-        </form>
-       
+    <!-- Bottom section with cards -->
+    <div class="bottom">
+        <h2>Learn More About Us</h2>
+
+        <!-- About Us Card -->
+        <div class="card card-left">
+            <div class="card-header">
+                <h3>Our Goal</h3>
+            </div>
+            <div class="card-body">
+                <p>Our goal is to revolutionize the way attendance is managed in educational institutions. We strive to create an environment where attendance tracking is seamless, accessible, and accurate. By leveraging technology, we aim to simplify attendance management for both students and faculty members. Our app helps save time, reduce human error, and ensure that students’ attendance records are always up-to-date.</p>
+                <p>We believe that a smooth and easy-to-use interface is crucial for both teachers and students, allowing them to focus more on learning and less on administrative tasks. With features like real-time updates, automatic reports, and easy integration, we aim to make this app the go-to tool for institutions of all sizes.</p>
+            </div>
+        </div>
+
+        <!-- Features Card -->
+        <div class="card card-right">
+            <div class="card-header">
+                <h3>Features</h3>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li><strong>Real-Time Updates:</strong> Attendance data is updated instantly for both teachers and students.</li>
+                    <li><strong>Easy Login:</strong> Simple login methods for teachers and students, tailored to their roles.</li>
+                    <li><strong>Automated Reports:</strong> Generate detailed attendance reports for analysis and record-keeping.</li>
+                    <li><strong>Track Attendance History:</strong> Teachers and students can access historical attendance data for review.</li>
+                    <li><strong>Customizable Features:</strong> Institutions can customize the app based on their specific attendance policies.</li>
+                    <li><strong>Mobile-Friendly:</strong> The app is designed to be fully responsive, ensuring a seamless experience on mobile devices.</li>
+                    <li><strong>Secure Data Storage:</strong> All attendance data is stored securely, protecting sensitive information.</li>
+                    <li><strong>Easy Integration:</strong> The app can be integrated with other systems such as student databases or learning management platforms.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="image-section">
+            <img src="images/college.jpg" alt="Contact Us Image" class="img-fluid">
+        </div>
+
+        <!-- Contact Us Card -->
+        <div class="contact-us-card card">
+            <div class="card-header">
+                <h3>Contact Us</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Customer Service</h5>
+                        <ul>
+                            <li><a href="#">Contact Support</a></li>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Returns</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>About Us</h5>
+                        <ul>
+                            <li><a href="#">Our Story</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Press Releases</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Contact Information</h5>
+                        <ul>
+                            <li>Email: <a href="mailto:support@attendanceapp.com">support@attendanceapp.com</a></li>
+                            <li>Phone: <a href="tel:+123456789">+1 (234) 567-890</a></li>
+                            <li>Address: 123 University St., City, Country</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>Follow Us</h5>
+                        <ul class="social-links">
+                            <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                            <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                            <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <p>&copy; 2024 University Attendance App. All rights reserved.</p>
+            </div>
+        </div>
+
     </div>
 
     <!-- Bootstrap JS and dependencies (optional) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Function to trigger the animation
+        const animateOnScroll = () => {
+            // Select all cards with class "card-left" and "card-right"
+            const cardsLeft = document.querySelectorAll('.card-left');
+            const cardsRight = document.querySelectorAll('.card-right');
+
+            // Define the observer options (threshold when the cards appear)
+            const options = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5 // Trigger when 50% of the element is visible
+            };
+
+            // Create the IntersectionObserver instance
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add the animation class when the card comes into view
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target); // Stop observing after animation
+                    }
+                });
+            }, options);
+
+            // Observe each card
+            cardsLeft.forEach(card => observer.observe(card));
+            cardsRight.forEach(card => observer.observe(card));
+        };
+
+        // Run the function to trigger animation on scroll
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
+    </script>
+
 </body>
+
 </html>

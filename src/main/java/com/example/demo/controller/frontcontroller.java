@@ -164,6 +164,7 @@ public class frontcontroller {
 	@RequestMapping("/teachercoursedeletechoose")
 	public String teachercoursedeletechoose(HttpSession session, Model model,@ModelAttribute Courseallot ca) {
 
+		
 		Boolean present=false;
 		Teacher tr = (Teacher) session.getAttribute("tr");
 
@@ -177,7 +178,7 @@ public class frontcontroller {
 		
 		for(Courseallot co: list)
 		{
-			if(ca.getCourse().equals(co.getCourse()) && ca.getSemester()==co.getSemester() && ca.getSubject().equals(co.getSubject()) )
+			if(ca.getCourse().equals(co.getCourse()) && ca.getSemester()==co.getSemester() &&  ca.getSubject().equalsIgnoreCase(co.getSubject()))
 			{
 				System.out.println("subject present delete it");
 				present = true;
@@ -310,7 +311,6 @@ if(num>0)
 			model.addAttribute("absent", absent);
 
 			List<Courseallot> list = tdao.getcoursename(ca.getCourse(), ca.getSemester());
-			System.out.println(list + "studentbprofile");
 			model.addAttribute("list", list);
 		}
 			
@@ -335,7 +335,8 @@ if(num>0)
 		System.out.println("take attendnace"+list);
 		
 		List<Student> students = tdao.studentlist(course, semester);
-		
+        students.sort((student1, student2) -> Integer.compare(student1.getRollno(), student2.getRollno()));
+
 		session.setAttribute("students",students);
 		session.setAttribute("list1",list);
 
